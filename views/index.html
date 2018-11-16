@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"
+    <meta charset="utf-8">
+    <title>Artifact Cards!</title>
+    <style>
+      a {
+        color:black;
+        font-size:19px;
+      }
+    </style>
+  </head>
+  <body id="body" style='background-color:#202020'>
+    <div class="container">
+        <!-- Page Content goes here -->
+        <h1 class="center-align" style="color:#C8CCD4"> Artifact Cards List </h1>
+        <div class="row">
+          <div class="col s2">
+            <h4 class="center-align" style="color:#C8CCD4"> Filters </h4>
+            <label>
+              <input type="checkbox" id="checkbox_hero"/>
+              <span>Hero</span>
+            </label>
+          </div>
+          <div class="col s10">
+            <div class="row">
+              {{#cards}}
+                {{#large_image.default}}
+                <div class="col s2" ref="{{card_type}}">
+                  <img src="{{.}}" style="max-width: 100%;">
+                </div>
+                {{/large_image.default}}
+              {{/cards}}
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/mustache.js"></script>
+
+  <script type="text/javascript">
+    $("#checkbox_hero").click(function(){
+      if ($(this).is(':checked')) {
+        $("div[ref=Hero]").hide();
+      }
+    });
+  </script>
+</html>
