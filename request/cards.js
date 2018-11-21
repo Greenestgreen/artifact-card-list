@@ -1,55 +1,44 @@
-var request = require('request');
-
-var getCards = async() => {
-
-
-  var completeSet = []; 
-
-  let response1 = await getSet('0');
-  completeSet = completeSet.concat(response1);
-  let response2 = await getSet('1');
-  completeSet = completeSet.concat(response2);
-
-  return completeSet;
-
-};
+var rp = require('request-promise-native');
+var cache = require('memory-cache');
 
 
-var getSet = (id) => {
-  let url = `https://playartifact.com/cardset/${id}/`;
-  return new Promise((resolve,reject) => {
-    request({
-      url: url,
-      json: true,
-    }, (error,response,body) => {
-      if (error) {
-        reject('Unable to connect to valve servers');
-      } else if (response.statusCode === 400) {
-        reject('Unable to connect to valve servers');
-      } else if (response.statusCode === 200)  {
-        resolve(getResponseSet(body));
+
+
+var getCards = (force = false) => {
+  let  sets = ['0','1'];
+
+    sets.forEach ( (set) => {
+      if ( Date.now > cache.get(`expire_time_${set}`) || !cache.get(`expire_time_${set}` || force) ) {
+        let url = `https://playartifact.com/cardset/${set}/`;
+        rp({
+          url:url,
+          json: true})
+        .then(async (body) => {
+          cache.put(`expire_time_${set}`, body.expire_time );
+          await getSet(body);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       }
     });
-  });
-};
+}
 
 
-var getResponseSet = (body) => {
+
+
+var getSet = (body) => {
   console.log(body);
-  return new Promise((resolve,reject) => {
-  request({
-    url: body.cdn_root + body.url.substring(1),
-    json: true,
-  }, (error,response,body) => {
-    if (error) {
-      reject('Unable to connect to valve servers');
-    } else if (response.statusCode === 400) {
-      reject('Unable to connect to valve servers');
-    } else if (response.statusCode === 200)  {
-      resolve(body.card_set.card_list);
-    }
+  return rp({
+    url:body.cdn_root + body.url.substring(1),
+    json: true})
+  .then(() => {
+    console.log(body.card_set.set_info.name.english);
+    cache.put(body.card_set.set_info.name.english, body.card_set.card_list);
   })
-});
+  .catch(() => {
+
+  });
 };
 
 
