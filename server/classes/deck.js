@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 class Deck {
 
   constructor (id, expire_time) {
@@ -16,13 +18,22 @@ class Deck {
   }
 
   //filtercards
+  filterCards(options) {
+    // let res = this.cards.filter( card => {
+    //   card.card_type === type;
+    // })
+    //
+    // return res;
 
-  //id
 
-  //name
+    return _.filter(this.cards, (card) => {
+      return _.includes(options.types,card.card_type) &&
+       _.includes(options.rarities,card.rarity) &&
+        _.includes(card.card_name.english,options.name);
 
-  //color
-
+      // return card.card_type === type;
+    })
+  }
 
 }
 

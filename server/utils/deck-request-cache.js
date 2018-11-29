@@ -3,6 +3,7 @@ var cache = require('memory-cache');
 var {Deck} = require('../classes/deck');
 var cacheDeck = require('./cache-decks');
 var moment = require('moment');
+var _ = require('lodash');
 
 
 var updateDeck =  async (set,resolve) => {
@@ -42,7 +43,7 @@ var getDeckCached = (id) => {
   });
 }
 
-var updateAllDecks = (callback) => {
+var updateAllDecks = (callback, res) => {
 
   let decks = [0,1];
   var request = decks.map((deck) =>  {
@@ -52,10 +53,29 @@ var updateAllDecks = (callback) => {
 
   });
 
-  Promise.all(request).then(() => {    
+  Promise.all(request).then(() => {
     console.log('Finished');
+    res.locals.decks = cacheDeck.getAllCachedDecks();
     callback();
   });
 };
 
-module.exports = {updateAllDecks}
+var filterCardsRequest = (options) => {
+  return new Promise( (resolve,reject) => {
+    var decks  = _.cloneDeep(cacheDeck.getAllCachedDecks());
+    var request = decks.map((deck) => {
+      return new Promise((resolve) => {
+        deck.setCards(deck.filterCards(options));
+        resolve();
+      });
+    });
+
+    Promise.all(request).then(() => {
+      resolve(decks);
+
+    });
+  });
+
+}
+
+module.exports = {updateAllDecks,filterCardsRequest}

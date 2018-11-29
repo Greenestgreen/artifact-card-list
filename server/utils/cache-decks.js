@@ -59,7 +59,7 @@ var getAllCachedDecks = () => {
   let decks = [];
   let deckNames = getCachedDecksNames();
 
-  decknames.forEach( function(name)  {
+  deckNames.forEach( function(name)  {
     decks = decks.concat(getCachedDeckByName(name));
   });
 
@@ -68,4 +68,9 @@ var getAllCachedDecks = () => {
 
 
 
-module.exports = {checkArrayDeck, getCachedExpirationDate,addDeck,getCachedDecksNames,getCachedDeckById}
+module.exports = {checkArrayDeck,
+  getCachedExpirationDate,
+  addDeck,
+  getCachedDecksNames,
+  getCachedDeckById,
+  getAllCachedDecks}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection">
+      <link type="text/css" rel="stylesheet" href="/css/rpg-awesome.css"  media="screen,projection"
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>{{card.name.english}}</title>
+    <style>
+      a {
+        color:black;
+        font-size:19px;
+      }
+      .self-card {
+        display:inline-block;
+        max-width:122px;
+        margin: 0px 8px 0px 8px;
+      }
+      .card-image {
+        width:100%;
+      }
+      .text-panel {
+        font-size: 15px !important;
+        padding: 5px !important;
+        text-align: center;
+        min-height: 53px !important;
+        /* margin: 2rem 0 0.5rem 0; */
+      }
+      .text-card-atributes {
+        font-size: 30px;
+      }
+      .card-text {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body id="body" style='background-color:#202020'>
+    <div class="container">
+        <!-- Page Content goes here -->
+        <h1 class="center-align" style="color:#C8CCD4"> {{card.name.default}} </h1>
+        <div class="row">
+          <div class="col s4">
+            <img src="{{card.image.default}}" alt="{{card.name.default}}" class="card-image">
+          </div>
+          <div class="col s8">
+            <div class="row">
+              <!-- Mana materialize card-->
+              {{#card.mana}}
+              <div class="col s3">
+                <div class="card-panel grey darken-2 text-panel">
+                  <span class="white-text">
+                    <i class="ra ra-water-drop ra-2x" style="color:blue;"></i>
+                    <span class="text-card-atributes">{{.}}</span>
+                </div>
+              </div>
+              {{/card.mana}}
+              {{#card.attack}}
+              <!-- Attack materialize card-->
+              <div class="col s3">
+                <div class="card-panel grey darken-2 text-panel">
+                  <span class="white-text">
+                    <i class="ra ra-sword ra-2x" style="color:orange;"></i>
+                    <span class="text-card-atributes">{{.}}</span>
+                  </span>
+                </div>
+              </div>
+              {{/card.attack}}
+              <!-- Health materialize card-->
+              {{#card.hit_points}}
+              <div class="col s3">
+                <div class="card-panel grey darken-2 text-panel">
+                  <span class="white-text">
+                    <i class="ra  ra-health ra-2x" style="color:red;"></i>
+                    <span class="text-card-atributes">{{.}}</span>
+                  </span>
+                </div>
+              </div>
+              {{/card.hit_points}}
+              <div class="col s3">
+                <div class="card-panel grey darken-2 text-panel">
+                  <span class="white-text">
+                    <i class="material-icons {{card.color}}-text darken-3" style="font-size: 40px;">adjust</i>
+                  <span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s4">
+                <div class="card-panel grey darken-2 text-panel">
+                  <span class="white-text card-text">
+                    Type: {{card.type}}
+                  <span>
+                </div>
+              </div>
+              <div class="col s4">
+                <div class="card-panel grey darken-2 text-panel">
+                  <span class="white-text card-text">
+                    Rarity: {{card.rarity}}
+                  <span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s4">
+              </div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/mustache.js"></script>
+
+  <script type="text/javascript">
+    $("#checkbox_hero").click(function(){
+      if ($(this).is(':checked')) {
+        $("div[ref=Hero]").hide();
+      }
+    });
+  </script>
+</html>

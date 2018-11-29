@@ -19,23 +19,21 @@
         <!-- Page Content goes here -->
         <h1 class="center-align" style="color:#C8CCD4"> Artifact Cards List </h1>
         <div class="row">
-          <div class="col s2">
-            <h4 class="center-align" style="color:#C8CCD4"> Filters </h4>
-            <label>
-              <input type="checkbox" id="checkbox_hero"/>
-              <span>Hero</span>
-            </label>
-          </div>
-          <div class="col s10">
-            <div class="row">
-              {{#cards}}
-                {{#large_image.default}}
-                <div class="col s2" ref="{{card_type}}">
-                  <img src="{{.}}" style="max-width: 100%;">
+          <div class="col s4">
+            <a href="/cards">
+                <div class="card-panel grey darken-3 z-depth-1">
+                  <div class="row valign-wrapper">
+                    <div class="col s5">
+                      <img src="/images/arti_logo.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span class="white-text">
+                        Click here to check out all  Artifact cards.
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                {{/large_image.default}}
-              {{/cards}}
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -43,12 +41,4 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
   <script src="/js/mustache.js"></script>
-
-  <script type="text/javascript">
-    $("#checkbox_hero").click(function(){
-      if ($(this).is(':checked')) {
-        $("div[ref=Hero]").hide();
-      }
-    });
-  </script>
 </html>
