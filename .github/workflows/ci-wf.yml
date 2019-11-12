@@ -1,0 +1,16 @@
+name: My first Github action yay
+#This will be triggered when someone pushes to the repository
+on: push
+
+jobs:
+  build:
+    name: Yaying
+    runs-on: ubuntu-latest
+    steps:
+        - name: Hello
+          uses: actions/hello-world-javascript-action@v1
+          with:
+          who-to-greet: 'Mona the Octocat'
+          id: hello
+        - name: Echo the greeting's time
+        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
