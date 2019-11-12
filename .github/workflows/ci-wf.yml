@@ -1,6 +1,6 @@
 name: My first Github action yay
 #This will be triggered when someone pushes to the repository
-on: push
+on: [push]
 
 jobs:
   build:
